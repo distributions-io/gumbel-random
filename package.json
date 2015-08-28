@@ -1,5 +1,5 @@
 {
-  "name": "rand-gumbel",
+  "name": "distributions-gumbel-random",
   "version": "0.0.0",
   "description": "Generates Gumbel distributed random variates.",
   "author": {
@@ -20,10 +20,10 @@
   "main": "./lib",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rand-io/gumbel.git"
+    "url": "git://github.com/distributions-io/gumbel-random.git"
   },
   "keywords": [
-    "rand.io",
+    "distributions.io",
     "probability",
     "statistics",
     "stats",
@@ -42,7 +42,7 @@
     "extreme value theory"
   ],
   "bugs": {
-    "url": "https://github.com/rand-io/gumbel/issues"
+    "url": "https://github.com/distributions-io/gumbel-random/issues"
   },
   "dependencies": {
     "compute-array-constructors": "^1.0.0",

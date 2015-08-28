@@ -8,7 +8,7 @@ Gumbel Random Variables
 ## Installation
 
 ``` bash
-$ npm install rand-gumbel
+$ npm install distributions-gumbel-random
 ```
 
 For use in the browser, use [browserify](https://github.com/substack/node-browserify).
@@ -17,21 +17,25 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 ## Usage
 
 ``` javascript
-var random = require( 'rand-gumbel' );
+var random = require( 'distributions-gumbel-random' );
 ```
 
-#### random( dims[, opts] )
+#### random( [dims][, opts] )
 
-Creates a [`matrix`](https://github.com/dstructs/matrix) or [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) filled with draws from a [Gumbel distribution](https://en.wikipedia.org/wiki/Gumbel_distribution). The `dims` argument may either be a positive `integer` specifying a `length` or an `array` of positive `integers` specifying dimensions.
+Creates a [`matrix`](https://github.com/dstructs/matrix) or [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) filled with draws from a [Gumbel distribution](https://en.wikipedia.org/wiki/Gumbel_distribution). The `dims` argument may either be a positive `integer` specifying a `length` or an `array` of positive `integers` specifying dimensions. If no `dims` argument is supplied,
+the function returns a single random draw from a [Gumbel distribution](https://en.wikipedia.org/wiki/Gumbel_distribution).
 
 ``` javascript
 var out;
 
+// Set seed
+random.seed = 2;
+
 out = random( 5 );
-// returns [ ~3.381, ~-0.344, ~-0.564, ~0.302, ~0.729 ]
+// returns [ ~-0.348, ~-0.251, ~2.192, ~-0.098, ~-0.701 ]
 
 out = random( [2,1,2] );
-// returns [ [ [~0.746,~-0.382] ], [ [~2.16,~1.225] ] ]
+// returns [ [ [~0.173,~0.602] ], [ [~-0.74,~0.061] ] ]
 
 ```
 
@@ -49,7 +53,7 @@ var out = random( 5, {
 	'mu': 3,
 	'beta': 6,
 });
-// returns [ ~5.628, ~3.915, ~24.837, ~12.343, ~6.297 ]
+// returns [ ~19.724, ~0.966, -2.62, ~-1.268, 4.61 ]
 
 ```
 
@@ -68,6 +72,25 @@ var out = random( 3, {
 
 ```
 
+If no `seed` option is supplied, each function call uses a common underlying uniform number generator. A positive-integer seed for this underlying generator can be supplied by setting the seed property of the exported function.
+
+```javascript
+random.seed = 11;
+var out = random();
+// returns ~-0.348
+
+var out = random();
+// returns ~0.254
+
+random.seed = 11;
+var out = random();
+// returns ~-0.348
+
+var out = random();
+// returns ~0.254
+
+```
+
 By default, the output data structure is a generic [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). To output a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) or [`matrix`](https://github.com/dstructs/matrix), set the `dtype` option.
 
 ``` javascript
@@ -76,15 +99,15 @@ var out;
 out = random( 5, {
 	'dtype': 'float32'
 });
-// returns Float32Array( [4.48,~-0.083,~-0.934,~0.519,~0.862] )
+// returns Float32Array( [~1.885,~0.146,~-1.468,~-0.758,~-0.477] )
 
 out = random( [3,2], {
 	'dtype': 'float64'
 });
 /*
-	[ ~-0.324 ~1.043
-	  ~0.155 ~0.886
-	  ~2.549 ~-0.458 ]
+	[ ~2.436 ~-0.875
+	  ~-0.383 ~0.261
+	  ~1.356 ~0.366 ]
 */
 
 ```
@@ -96,15 +119,18 @@ __Notes__:
 	var out = random( [2,1,3], {
 		'dtype': 'float32'
 	});
-	// returns [ [ [~0.085,~2.311,~-0.681] ], [ [ ~1.855,~-0.257,~-0.4231] ] ]
+	// returns [ [ [~1.939,~1.826,~2.793] ], [ [~0.363,~-0.203,~0.274 ] ] ]
 
 	```
 
 ## Examples
 
 ``` javascript
-var random = require( 'rand-gumbel' ),
+var random = require( 'distributions-gumbel-random' ),
 	out;
+
+// Set seed
+random.seed = 23;
 
 // Plain arrays...
 
@@ -174,20 +200,20 @@ $ make view-cov
 Copyright &copy; 2015. The [Compute.io](https://github.com/compute-io) Authors.
 
 
-[npm-image]: http://img.shields.io/npm/v/rand-gumbel.svg
-[npm-url]: https://npmjs.org/package/rand-gumbel
+[npm-image]: http://img.shields.io/npm/v/distributions-gumbel-random.svg
+[npm-url]: https://npmjs.org/package/distributions-gumbel-random
 
-[travis-image]: http://img.shields.io/travis/rand-io/gumbel/master.svg
-[travis-url]: https://travis-ci.org/rand-io/gumbel
+[travis-image]: http://img.shields.io/travis/distributions-io/gumbel-random/master.svg
+[travis-url]: https://travis-ci.org/distributions-io/gumbel-random
 
-[codecov-image]: https://img.shields.io/codecov/c/githubrand-io/gumbel/master.svg
-[codecov-url]: https://codecov.io/github/rand-io/gumbel?branch=master
+[codecov-image]: https://img.shields.io/codecov/c/github/distributions-io/gumbel-random/master.svg
+[codecov-url]: https://codecov.io/github/distributions-io/gumbel-random?branch=master
 
-[dependencies-image]: http://img.shields.io/david/rand-io/gumbel.svg
-[dependencies-url]: https://david-dm.org/rand-io/gumbel
+[dependencies-image]: http://img.shields.io/david/distributions-io/gumbel-random.svg
+[dependencies-url]: https://david-dm.org/distributions-io/gumbel-random
 
-[dev-dependencies-image]: http://img.shields.io/david/dev/rand-io/gumbel.svg
-[dev-dependencies-url]: https://david-dm.org/dev/rand-io/gumbel
+[dev-dependencies-image]: http://img.shields.io/david/dev/distributions-io/gumbel-random.svg
+[dev-dependencies-url]: https://david-dm.org/dev/distributions-io/gumbel-random
 
-[github-issues-image]: http://img.shields.io/github/issues/rand-io/gumbel.svg
-[github-issues-url]: https://github.com/rand-io/gumbel/issues
+[github-issues-image]: http://img.shields.io/github/issues/distributions-io/gumbel-random.svg
+[github-issues-url]: https://github.com/distributions-io/gumbel-random/issues
